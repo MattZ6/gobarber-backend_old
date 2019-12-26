@@ -6,12 +6,12 @@ import File from '../models/File';
 class UserController {
   async show(req, res) {
     const user = await User.findByPk(req.userId, {
-      attributes: ['name', 'email', 'provider'],
+      attributes: ['id', 'name', 'email', 'provider'],
       include: [
         {
           model: File,
           as: 'avatar',
-          attributes: ['path', 'url'],
+          attributes: ['id', 'path', 'url'],
         },
       ],
     });
@@ -82,7 +82,7 @@ class UserController {
 
     await user.update(req.body);
 
-    return res.json();
+    return res.status(204).json();
   }
 }
 
